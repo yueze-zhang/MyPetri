@@ -1,0 +1,12 @@
+<?xml version="1.0"  encoding="UTF-8"?>  
+<PetriNet>  
+    <Place ID="1">  
+        <label>冰与火之歌</label>  
+    </Place>  
+    <Place ID="2">  
+        <label>安徒生童话</label>  
+    </Place>  
+    <Place ID="3">  
+        <label>think think think</label>  
+    </Place>  
+</PetriNet>  

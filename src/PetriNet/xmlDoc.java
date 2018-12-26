@@ -19,6 +19,11 @@ public class xmlDoc {
     private static DocumentBuilder db = null;
     private static Document document = null;
     private static List<Place> places = null;
+    private static List<TransitionNode> transitionNodes = null;
+    private static List<InputEdge> inputEdges = null;
+    private static List<OutputEdge> outputEdges = null;
+
+
     static{
         try {
             dbFactory = DocumentBuilderFactory.newInstance();
@@ -27,9 +32,23 @@ public class xmlDoc {
             e.printStackTrace();
         }
     }
+//--------------------------------------------------------------------------------
+//                读取XML文件
+//--------------------------------------------------------------------------------
+    public static PetriNet getPetriNetDocument(String fileName)throws Exception{   //将给定URI的内容解析为一个XML文档,并返回Document对象
+        document = db.parse(fileName);                                                  //按文档顺序返回包含在文档中且具有给定标记名称的所有 Element 的 NodeList
+        List<Place> place = getPlace(document);
+        List<TransitionNode> transitionNodes = getTransitionNode(document);
+        List<InputEdge> inputEdges = getInputEdge(document);
+        List<OutputEdge> onputEdges = getOutputEdge(document);
+        PetriNet petriNet = new PetriNet(place,transitionNodes,inputEdges,outputEdges);
+        return petriNet;
+    }
 
-        public static List<Place> getPlace(String fileName) throws Exception{       //将给定URI的内容解析为一个XML文档,并返回Document对象
-            document = db.parse(fileName);                                          //按文档顺序返回包含在文档中且具有给定标记名称的所有 Element 的 NodeList
+//--------------------------------------------------------------------------------
+//                读取XML中的PLACE信息
+//--------------------------------------------------------------------------------
+        public static List<Place> getPlace(Document document) throws Exception{
             NodeList placeList = document.getElementsByTagName("Place");
             places = new ArrayList<Place>();                                        //遍历place
 
@@ -57,20 +76,108 @@ public class xmlDoc {
                 places.add(place);
             }
             return places;
+        }
 
-        }
-    public static void main(String args[]){
-        String fileName ="src/res/books.xml";
-        try {
-            List<Place> list = xmlDoc.getPlace(fileName);
-            for(Place place :list){
-                System.out.println(place);
+//--------------------------------------------------------------------------------
+//                读取XML中的TransitionNode信息
+//--------------------------------------------------------------------------------
+    public static List<TransitionNode> getTransitionNode(Document document) throws Exception{
+        NodeList transitionNodeList = document.getElementsByTagName("TransitionNode");
+        transitionNodes = new ArrayList<TransitionNode>();                                        //遍历transitionNode
+
+        for(int i=0;i<transitionNodeList.getLength();i++){
+            TransitionNode transitionNode = new TransitionNode();                                           //获取第i个TN结点
+            org.w3c.dom.Node node = transitionNodeList.item(i);                                 //获取第i个book的所有属性
+            NamedNodeMap namedNodeMap = node.getAttributes();                                   //获取已知名为id的属性值
+            String ID = namedNodeMap.getNamedItem("ID").getTextContent();       //System.out.println(id);
+            transitionNode.setID(Integer.parseInt(ID));
+
+            //获取place结点的子节点,包含了Test类型的换行
+            NodeList cList = node.getChildNodes();
+            //System.out.println(cList.getLength());9
+
+            //将一个Place里面的属性加入数组
+            ArrayList<String> contents = new ArrayList<>();
+            for(int j=1;j<cList.getLength();j+=2){
+
+                org.w3c.dom.Node cNode = cList.item(j);
+                String content = cNode.getFirstChild().getTextContent();
+                contents.add(content);
+                //System.out.println(contents);
             }
-        } catch (Exception e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-            }
+            transitionNode.setLabel(contents.get(0));
+            transitionNodes.add(transitionNode);
         }
+        return transitionNodes;
+    }
+
+//--------------------------------------------------------------------------------
+//                读取XML中的inputEDGE信息
+//--------------------------------------------------------------------------------
+    public static List<InputEdge> getInputEdge(Document document) throws Exception{
+        NodeList INputEdgeList = document.getElementsByTagName("InputEdge");
+        inputEdges = new ArrayList<InputEdge>();                                        //遍历place
+
+        for(int i=0;i<INputEdgeList.getLength();i++){
+            InputEdge inputEdge = new InputEdge();                                           //获取第i个Place结点
+            org.w3c.dom.Node node = INputEdgeList.item(i);                           //获取第i个book的所有属性
+            NamedNodeMap namedNodeMap = node.getAttributes();                    //获取已知名为id的属性值
+            String ID = namedNodeMap.getNamedItem("ID").getTextContent();       //System.out.println(id);
+            inputEdge.setID(Integer.parseInt(ID));
+
+            //获取place结点的子节点,包含了Test类型的换行
+            NodeList cList = node.getChildNodes();
+            //System.out.println(cList.getLength());9
+
+            //将一个Place里面的属性加入数组
+            ArrayList<String> contents = new ArrayList<>();
+            for(int j=1;j<cList.getLength();j+=2){
+
+                org.w3c.dom.Node cNode = cList.item(j);
+                String content = cNode.getFirstChild().getTextContent();
+                contents.add(content);
+                //System.out.println(contents);
+            }
+            inputEdge.setSourceID(Integer.parseInt(contents.get(0)));            //读取边的起始点ID号
+            inputEdge.setDestinationID(Integer.parseInt(contents.get(1)));      //读取边的终点ID号
+            inputEdges.add(inputEdge);
+        }
+        return inputEdges;
+    }
+
+    //--------------------------------------------------------------------------------
+//                读取XML中的outputEDGE信息
+//--------------------------------------------------------------------------------
+    public static List<OutputEdge> getOutputEdge(Document document) throws Exception{
+        NodeList outEdgeList = document.getElementsByTagName("InputEdge");
+        outputEdges = new ArrayList<OutputEdge>();                                        //遍历place
+
+        for(int i=0;i<outEdgeList.getLength();i++){
+            OutputEdge outputEdge = new OutputEdge();                                           //获取第i个Place结点
+            org.w3c.dom.Node node = outEdgeList.item(i);                           //获取第i个book的所有属性
+            NamedNodeMap namedNodeMap = node.getAttributes();                    //获取已知名为id的属性值
+            String ID = namedNodeMap.getNamedItem("ID").getTextContent();       //System.out.println(id);
+            outputEdge.setID(Integer.parseInt(ID));
+
+            //获取place结点的子节点,包含了Test类型的换行
+            NodeList cList = node.getChildNodes();
+            //System.out.println(cList.getLength());9
+
+            //将一个Place里面的属性加入数组
+            ArrayList<String> contents = new ArrayList<>();
+            for(int j=1;j<cList.getLength();j+=2){
+
+                org.w3c.dom.Node cNode = cList.item(j);
+                String content = cNode.getFirstChild().getTextContent();
+                contents.add(content);
+                //System.out.println(contents);
+            }
+            outputEdge.setSourceID(Integer.parseInt(contents.get(0)));            //读取边的起始点ID号
+            outputEdge.setDestinationID(Integer.parseInt(contents.get(1)));      //读取边的终点ID号
+            outputEdges.add(outputEdge);
+        }
+        return outputEdges;
+    }
 
 }
 
