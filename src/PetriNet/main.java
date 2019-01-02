@@ -1,17 +1,19 @@
 package PetriNet;
 import java.util.List;
-class main {
 
+import static PetriNet.xmlDoc.*;
+
+public class main {
+    static PetriNet petri;
     public static void main(String args[]) {
         String fileName = "src/res/PetriNet.xml";
         try {
-            List<Place> list = xmlDoc.getPlace(fileName);
-            for (Place place : list) {
-                System.out.println(place);
-            }
+            petri = getPetriNetDocument(fileName);
+
+
+
         } catch (Exception e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
         }
     }
 

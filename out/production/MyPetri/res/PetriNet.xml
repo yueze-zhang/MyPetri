@@ -1,12 +1,30 @@
 <?xml version="1.0"  encoding="UTF-8"?>  
 <PetriNet>  
+    <Place ID="0">  
+        <label>准备工位</label>  
+    </Place>  
     <Place ID="1">  
-        <label>冰与火之歌</label>  
+        <label>机床加工位</label>  
     </Place>  
     <Place ID="2">  
-        <label>安徒生童话</label>  
+        <label>完成工位</label> 
+	</Place>  		
+	<Place ID="3">  
+        <label>机床可用状态</label>  
     </Place>  
-    <Place ID="3">  
-        <label>think think think</label>  
-    </Place>  
+	
+	<TransitionNode ID="4">  
+        <label>入口</label>  
+		<InputEdge>0 3</InputEdge>
+		<OutputEdge>1</OutputEdge>
+    </TransitionNode>
+	<TransitionNode ID="5">  
+        <label>出口</label>  
+		<InputEdge>1</InputEdge>
+		<OutputEdge>2 3</OutputEdge>
+    </TransitionNode>
+	
+	<StartState>  
+        <label>1 0 0 0</label>  
+    </StartState>  
 </PetriNet>  

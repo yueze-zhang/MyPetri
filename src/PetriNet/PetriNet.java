@@ -2,18 +2,16 @@ package PetriNet;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
-public class PetriNet {
+public  class PetriNet {
 
-    List<Place> placeList = new ArrayList<Place>();                                 //记录这个网所有place
-    List<TransitionNode> transitionNodesList = new ArrayList<TransitionNode>();     //记录这个网所有的变迁
-    List<InputEdge> InputEdges = new ArrayList<InputEdge>();                                    //记录所有的变迁
-    List<OutputEdge> outputEdges = new ArrayList<OutputEdge>();                                    //记录所有的变迁
+     public Map<Integer,Place> placeList = null;                                 //记录这个网所有place
+     public Map<Integer,TransitionNode> transitionNodesList = null;     //记录这个网所有的变迁
 
-    PetriNet(List<Place> placeList, List<TransitionNode> transitionNodesList,List<InputEdge> InputEdges,List<OutputEdge> outputEdges){
+
+    PetriNet(Map<Integer,Place> placeList, Map<Integer,TransitionNode> transitionNodesList){
         this.placeList = placeList;
-        this.InputEdges = InputEdges;
-        this.outputEdges = outputEdges;
         this.transitionNodesList = transitionNodesList;
     }
 
