@@ -25,18 +25,23 @@ public class xmlDoc {
 
 
 
-    static {
-        try {
-            dbFactory = DocumentBuilderFactory.newInstance();
-            db = dbFactory.newDocumentBuilder();
-        } catch (ParserConfigurationException e) {
-            e.printStackTrace();
-        }
-    }
+//    static {
+//        try {
+//            dbFactory = DocumentBuilderFactory.newInstance();
+//            db = dbFactory.newDocumentBuilder();
+//        } catch (ParserConfigurationException e) {
+//            e.printStackTrace();
+//        }
+//    }
 //--------------------------------------------------------------------------------
 //                读取XML文件
 //--------------------------------------------------------------------------------
     public static PetriNet getPetriNetDocument(String fileName)throws Exception{   //将给定URI的内容解析为一个XML文档,并返回Document对象
+        //创建一个DocumentBuilderFactory的对象
+        DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+        //创建一个DocumentBuilder的对象
+        //创建DocumentBuilder对象
+        DocumentBuilder db = dbf.newDocumentBuilder();
         document = db.parse(fileName);                 //按文档顺序返回包含在文档中且具有给定标记名称的所有 Element 的 NodeList
         Map<Integer,Place> place = getPlace(document);
         Map<Integer,TransitionNode> transitionNodes = getTransitionNode(document);

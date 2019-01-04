@@ -25,4 +25,7 @@
 	<StartState>  
         <label>1 0 0 1</label>  
     </StartState>  
+	<EndState>  
+        <label>0 0 1 1</label>  
+    </EndState> 
 </PetriNet>  
