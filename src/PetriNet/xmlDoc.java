@@ -37,12 +37,12 @@ public class xmlDoc {
 //                读取XML文件
 //--------------------------------------------------------------------------------
     public static PetriNet getPetriNetDocument(String fileName)throws Exception{   //将给定URI的内容解析为一个XML文档,并返回Document对象
-        document = db.parse(fileName);                                                  //按文档顺序返回包含在文档中且具有给定标记名称的所有 Element 的 NodeList
+        document = db.parse(fileName);                 //按文档顺序返回包含在文档中且具有给定标记名称的所有 Element 的 NodeList
         Map<Integer,Place> place = getPlace(document);
         Map<Integer,TransitionNode> transitionNodes = getTransitionNode(document);
-        PetriNet petriNet = new PetriNet(place,transitionNodes);
         State startState = getStartState(document);
         State endState = getEndState(document);
+        PetriNet petriNet = new PetriNet(place,transitionNodes,startState,endState);
         return petriNet;
     }
 
@@ -146,7 +146,7 @@ public class xmlDoc {
                 int ss = new Integer(split1[z]);
                 A1[z] = ss;
             }
-            state.setCurrentPlace(A1);
+            state.setCurrentToken(A1);
         return state;
     }
 
@@ -168,7 +168,7 @@ public class xmlDoc {
             int ss = new Integer(split1[z]);
             A1[z] = ss;
         }
-        state.setCurrentPlace(A1);
+        state.setCurrentToken(A1);
         return state;
     }
 }

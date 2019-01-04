@@ -7,7 +7,7 @@ public class command {
 
         TransitionNode transitionNode = p.transitionNodesList.get(transitionNodeID);
         int[] inputEdge  = transitionNode.getInputedges(); //读取所有的链接 0.  5
-        int[] stateVlaue = state.getCurrentPlace();       //获取当前的状态
+        int[] stateVlaue = state.getCurrentToken();       //获取当前的状态
         for (int i = 0; i<inputEdge.length; i++ ){
             if(stateVlaue[ inputEdge[i] ] <= 0) return false;       //如果上面的place没有token 那么返回false;
         }
@@ -21,7 +21,7 @@ public class command {
         TransitionNode transitionNode = p.transitionNodesList.get(transitionNodeID);
         int[] inputEdge  = transitionNode.getInputedges(); //读取所有的链接 0.  5
         int[] outputEdge = transitionNode.getOutputedges();//读取所有的链接 0.  5
-        int[] stateVlaue = state.getCurrentPlace();       //获取当前的状态
+        int[] stateVlaue = state.getCurrentToken();       //获取当前的状态
         for (int i = 0; i<inputEdge.length; i++ ){
             stateVlaue[ inputEdge[i] ] = stateVlaue[ inputEdge[i] ] - 1; //上面的place没有token-1
         }

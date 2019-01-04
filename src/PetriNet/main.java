@@ -9,6 +9,8 @@ public class main {
         String fileName = "src/res/PetriNet.xml";
         try {
             petri = getPetriNetDocument(fileName);
+            petri.getStartState().toString();
+            System.out.println(petri.getStartState().toString());
 
 
 

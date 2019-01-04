@@ -12,7 +12,6 @@
 	<Place ID="3">  
         <label>机床可用状态</label>  
     </Place>  
-	
 	<TransitionNode ID="4">  
         <label>入口</label>  
 		<InputEdge>0 3</InputEdge>
@@ -23,8 +22,7 @@
 		<InputEdge>1</InputEdge>
 		<OutputEdge>2 3</OutputEdge>
     </TransitionNode>
-	
 	<StartState>  
-        <label>1 0 0 0</label>  
+        <label>1 0 0 1</label>  
     </StartState>  
 </PetriNet>  
