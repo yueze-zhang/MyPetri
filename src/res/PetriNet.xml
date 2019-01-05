@@ -12,20 +12,40 @@
 	<Place ID="3">  
         <label>机床可用状态</label>  
     </Place>  
-	<TransitionNode ID="4">  
+	<Place ID="4">  
+        <label>机床可用状态</label>  
+    </Place>  
+	<Place ID="5">  
+        <label>机床可用状态</label>  
+    </Place>  
+	<TransitionNode ID="0">  
         <label>入口</label>  
-		<InputEdge>0 3</InputEdge>
+		<InputEdge>0 4</InputEdge>
 		<OutputEdge>1</OutputEdge>
+		<cost>7</cost>
     </TransitionNode>
-	<TransitionNode ID="5">  
+	<TransitionNode ID="1">  
+        <label>出口</label>  
+		<InputEdge>0 5</InputEdge>
+		<OutputEdge>2</OutputEdge>
+		<cost>2</cost>
+    </TransitionNode>
+	<TransitionNode ID="2">  
         <label>出口</label>  
 		<InputEdge>1</InputEdge>
-		<OutputEdge>2 3</OutputEdge>
+		<OutputEdge>3 4</OutputEdge>
+		<cost>3</cost>
+    </TransitionNode>
+	<TransitionNode ID="3">  
+        <label>出口</label>  
+		<InputEdge>2</InputEdge>
+		<OutputEdge>3 5</OutputEdge>
+		<cost>5</cost>
     </TransitionNode>
 	<StartState>  
-        <label>1 0 0 1</label>  
+        <label>5 0 0 0 1 1</label>  
     </StartState>  
 	<EndState>  
-        <label>0 0 1 1</label>  
+        <label>0 0 0 5 1 1</label>  
     </EndState> 
 </PetriNet>  
