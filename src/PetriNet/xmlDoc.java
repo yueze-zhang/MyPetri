@@ -69,7 +69,9 @@ public class xmlDoc {
                     contents.add(content);
 
                 }
-                place.setLabel(contents.get(0));
+                place.setLabel(contents.get(0));                                                    //存入Place标签
+                place.setProcessTime(Integer.parseInt(contents.get(1)));                            //存入Place的需要进程时间
+                //place.setProcessTime(Integer.parseInt(contents.get(2)));                            //存入加工时间
                 places.put(Integer.parseInt(ID),place);
             }
             return places;
@@ -143,6 +145,8 @@ public class xmlDoc {
                 A1[z] = ss;
             }
             state.setCurrentToken(A1);
+            int[] length = new int[state.getCurrentToken().length];
+            state.setCurrentPlaceWaitTime(length);
         return state;
     }
 

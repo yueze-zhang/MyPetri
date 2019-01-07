@@ -10,6 +10,7 @@ public class main {
         String fileName = "D:\\document\\FMS\\MyPetri\\src\\res\\PetriNet.xml";
         try {
             petri = getPetriNetDocument(fileName);
+            AStarKernel.AStarStart(petri);
         } catch (Exception e) {
             // TODO Auto-generated catch block
         }
@@ -19,7 +20,7 @@ public class main {
 //        System.out.println(Arrays.toString(testvalue));
 //       testvalue = command.ChangeTransition(petri,petri.getStartState(),1);
 //        System.out.println(Arrays.toString(testvalue));
-        AStarKernel.AStarStart(petri);
+
 
     }
 

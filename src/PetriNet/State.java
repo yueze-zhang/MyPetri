@@ -3,7 +3,7 @@ package PetriNet;
 import java.lang.reflect.Array;
 import java.util.*;
 
-public class State implements Comparable<State>  {
+public class State implements Comparable<State>, Cloneable {
 
     private static int count = 0 ;                                      //用于ID自增
     private int stateID;
@@ -22,8 +22,8 @@ public class State implements Comparable<State>  {
 
     private int time;                                                   //定义当前状态所用的时间
     public int getTime() { return time; }
+    public void setAddTime(int time) { this.time += time; }
     public void setTime(int time) { this.time = time; }
-
     private int gValue;                                                      //G：是个准确的值，是起点到当前结点的代价
     private int hValue;                                                      //H：是个估值，当前结点到目的结点的估计代价
     public int getgValue() { return gValue; }
@@ -37,20 +37,23 @@ public class State implements Comparable<State>  {
 
     public State(){
         this.stateID = ++count;
+
     }
-    public State(int[]stateValue, State current, int G, int H ,int transitionNodeID){
+    public State(int[]stateValue, State current, int G, int H ,int transitionNodeID, int time){
         this.currentToken = stateValue;
         this.parent = current;
         this.gValue = G;
         this.hValue = H;
         this.transitionNodeID = transitionNodeID;
         this.stateID = ++count;
+        this.time = time;
+        this.currentPlaceWaitTime = new int[stateValue.length];
     }
 
     @Override
     public String toString() {
         return "State [id=" + stateID + ", currentToken =" + Arrays.toString(currentToken) +
-                ", G Value ="+ Integer.toString(gValue) +", transitionNodeID = "+ transitionNodeID+ "]";
+                ", Time ="+ Integer.toString(time) +", transitionNodeID = "+ transitionNodeID+ "]";
     }
 
     @Override
@@ -71,9 +74,17 @@ public class State implements Comparable<State>  {
     @Override
     public int compareTo(State o) {
         if (o == null) return -1;
-        if (gValue > o.getgValue())
+        if (time + command.sumInt(currentPlaceWaitTime) > o.getTime() + command.sumInt(o.currentPlaceWaitTime))
             return 1;
-        else if (gValue < o.getgValue()) return -1;
+        else if (time + command.sumInt(currentPlaceWaitTime) < o.getTime() + command.sumInt(o.currentPlaceWaitTime)) return -1;
         return 0;
     }
+
+    @Override
+    public Object clone() throws CloneNotSupportedException
+    {
+        Object object = super.clone();
+        return object;
+    }
+
 }
