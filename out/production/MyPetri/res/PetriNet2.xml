@@ -1,0 +1,192 @@
+<?xml version="1.0"  encoding="UTF-8"?>  
+<PetriNet>  
+    <Place ID="0">  
+        <label>-</label>  
+		<processTime>0</processTime>
+    </Place>  
+	
+	    <Place ID="1">  
+        <label>-</label>  
+		<processTime>0</processTime>
+    </Place>  
+	
+	    <Place ID="2">  
+        <label>-</label>  
+		<processTime>0</processTime>
+    </Place>  
+	
+	    <Place ID="3">  
+        <label>-</label>  
+		<processTime>10</processTime>
+    </Place>  
+	
+	    <Place ID="4">  
+        <label>-</label>  
+		<processTime>30</processTime>
+    </Place>  
+	
+	    <Place ID="5">  
+        <label>-</label>  
+		<processTime>0</processTime>
+    </Place>  
+	
+	    <Place ID="6">  
+        <label>-</label>  
+		<processTime>20</processTime>
+    </Place>  
+	
+	    <Place ID="7">  
+        <label>-</label>  
+		<processTime>10</processTime>
+    </Place>  
+	
+	    <Place ID="8">  
+        <label>-</label>  
+		<processTime>0</processTime>
+    </Place>  
+	
+	    <Place ID="9">  
+        <label>-</label>  
+		<processTime>0</processTime>
+    </Place>  
+	
+	    <Place ID="10">  
+        <label>-</label>  
+		<processTime>0</processTime>
+    </Place>  
+	
+	    <Place ID="11">  
+        <label>-</label>  
+		<processTime>10</processTime>
+    </Place>  
+	
+	    <Place ID="12">  
+        <label>-</label>  
+		<processTime>30</processTime>
+    </Place>  
+	
+	    <Place ID="13">  
+        <label>-</label>  
+		<processTime>0</processTime>
+    </Place>  
+	
+	    <Place ID="14">  
+        <label>-</label>  
+		<processTime>20</processTime>
+    </Place>  
+	
+	    <Place ID="15">  
+        <label>-</label>  
+		<processTime>0</processTime>
+    </Place>  
+	
+	    <Place ID="16">  
+        <label>-</label>  
+		<processTime>0</processTime>
+    </Place>  
+   
+	<TransitionNode ID="0">  
+        <label>-</label>  
+		<InputEdge>0 2</InputEdge>
+		<OutputEdge>3</OutputEdge>
+		<cost>0</cost>
+    </TransitionNode>
+	
+		<TransitionNode ID="1">  
+        <label>-</label>  
+		<InputEdge>0 5</InputEdge>
+		<OutputEdge>4</OutputEdge>
+		<cost>0</cost>
+    </TransitionNode>
+		<TransitionNode ID="2">  
+        <label>-</label>  
+		<InputEdge>1 5</InputEdge>
+		<OutputEdge>6</OutputEdge>
+		<cost>0</cost>
+    </TransitionNode>
+		<TransitionNode ID="3">  
+        <label>-</label>  
+		<InputEdge>1 8</InputEdge>
+		<OutputEdge>7</OutputEdge>
+		<cost>0</cost>
+    </TransitionNode>
+	
+		<TransitionNode ID="4">  
+        <label>-</label>  
+		<InputEdge>3</InputEdge>
+		<OutputEdge>2 9</OutputEdge>
+		<cost>0</cost>
+    </TransitionNode>
+	
+		<TransitionNode ID="5">  
+        <label>-</label>  
+		<InputEdge>4</InputEdge>
+		<OutputEdge>5 9</OutputEdge>
+		<cost>0</cost>
+    </TransitionNode>
+	
+		<TransitionNode ID="6">  
+        <label>-</label>  
+		<InputEdge>6</InputEdge>
+		<OutputEdge>5 10</OutputEdge>
+		<cost>0</cost>
+    </TransitionNode>
+	
+		<TransitionNode ID="7">  
+        <label>-</label>  
+		<InputEdge>7</InputEdge>
+		<OutputEdge>8 10</OutputEdge>
+		<cost>0</cost>
+    </TransitionNode>
+	
+		<TransitionNode ID="8">  
+        <label>-</label>  
+		<InputEdge>2 9</InputEdge>
+		<OutputEdge>11</OutputEdge>
+		<cost>0</cost>
+    </TransitionNode>
+	
+		<TransitionNode ID="9">  
+        <label>-</label>  
+		<InputEdge>9 13</InputEdge>
+		<OutputEdge>12</OutputEdge>
+		<cost>0</cost>
+    </TransitionNode>
+	
+		<TransitionNode ID="10">  
+        <label>-</label>  
+		<InputEdge>10 13</InputEdge>
+		<OutputEdge>14</OutputEdge>
+		<cost>0</cost>
+    </TransitionNode>
+	
+		<TransitionNode ID="11">  
+        <label>-</label>  
+		<InputEdge>10</InputEdge>
+		<OutputEdge>2 15</OutputEdge>
+		<cost>0</cost>
+    </TransitionNode>
+	
+		<TransitionNode ID="12">  
+        <label>-</label>  
+		<InputEdge>12</InputEdge>
+		<OutputEdge>13 15</OutputEdge>
+		<cost>0</cost>
+    </TransitionNode>
+	
+		<TransitionNode ID="13">  
+        <label>-</label>  
+		<InputEdge>14</InputEdge>
+		<OutputEdge>13 16</OutputEdge>
+		<cost>0</cost>
+    </TransitionNode>
+
+
+	
+	<StartState>  
+        <label>2 2 1 0 0 1 0 0 1 0 0 0 0 1 0 0 0</label>  
+    </StartState>  
+	<EndState>  
+        <label>0 0 1 0 0 1 0 0 1 0 0 0 0 1 0 2 2</label>  
+    </EndState> 
+</PetriNet>  

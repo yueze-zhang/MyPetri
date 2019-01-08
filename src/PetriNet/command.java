@@ -79,7 +79,6 @@ public class command {
 
     //-------------------------------------------------------------------------------------
     //命令：把延时时间变的可用，同时增加state里的time值, 依照变迁来寻找延时
-    @Deprecated
     public static State ReduceWaitTime(PetriNet p,State state, int transitionNodeID) throws Exception{
         TransitionNode transitionNode = p.transitionNodesList.get(transitionNodeID);
         int[] inputEdge = transitionNode.getInputedges().clone();//读取所有的链接 0.  5
@@ -99,7 +98,7 @@ public class command {
             currentWaitTime[i] = currentWaitTime[i] - minNum;
             if (currentWaitTime[i]<0){ currentWaitTime[i] = 0; }
         }
-        State newCurrent =(State)state.clone();
+        State newCurrent =new State(state.getCurrentToken(),state, state.getgValue(), state.gethValue(), -1, state.getTime());
         newCurrent.setCurrentPlaceWaitTime(currentWaitTime);
         newCurrent.setAddTime(minNum);
         return newCurrent;
@@ -125,6 +124,30 @@ public class command {
         state.setAddTime(minNum);
         return state;
     }
+
+    //-------------------------------------------------------------------------------------
+    //命令：计算H值
+    public static int CalcHValue(int[] currentToken){
+        int a = currentToken[0]*20;
+        int b = currentToken[1]*30;
+
+        int d = currentToken[3]*20;
+        int e = currentToken[4]*40;
+
+        int f = currentToken[6]*40;
+        int g = currentToken[7]*30;
+
+        int h = currentToken[9]*10;
+        int i = currentToken[10]*20;
+        int j = currentToken[11]*10;
+        int k = currentToken[12]*30;
+
+        int l = currentToken[14]*20;
+
+        return a+b+d+e+f+g+h+i+j+k+l;
+    }
+
+
 
     //-------------------------------------------------------------------------------------
     //命令：数组求和

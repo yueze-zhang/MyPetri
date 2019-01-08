@@ -21,9 +21,9 @@ public class AStarKernel {
                 command.DrawPath(current);                                                                              //画图
                 break;
             }
-            if (current.getParent()!=null){
-                System.out.println("父亲状态"+ current.getParent().toString());
-            }
+//            if (current.getParent()!=null){
+//                System.out.println("父亲状态"+ current.getParent().toString());
+//            }
             System.out.println("当前状态"+current.toString());
             System.out.println("-------------------------------------");
             closeList.add(current);
@@ -50,11 +50,6 @@ public class AStarKernel {
                 count++;
             }
         }
-        if (count == petri.transitionNodesList.size()){
-            current = command.ReduceWaitTime(petri, current);   //这句话出问题了，断点打在这里
-            openList.add(current);
-            count = 0;
-        }
     }
 
     /**
@@ -69,18 +64,26 @@ public class AStarKernel {
         State child = findNodeInOpen(nextStateValue);                                                           //查找这个状态表里在不在OPEn表中
         if (child == null)
         {
-            int hValue = 0;
+            int hValue =command.CalcHValue(nextStateValue);
             child = new State(nextStateValue, current, 0, hValue,transitionNodeNumber, time);
             child.setCurrentPlaceWaitTime(childWaitTime);//创建新的状态
             openList.add(child);
         }
-        else if (child.getTime() + command.sumMax(child.getCurrentPlaceWaitTime()) > time + command.sumMax(childWaitTime))                                                                    //如果Child在OPEn表中 ，并且Child的G比nextGValue还大，说明发现了到child状态的近路，近路是current状态这条路
-        {
-            child.setTime(time);
-            child.setCurrentPlaceWaitTime(childWaitTime);
-            child.setParent(current);
+        else {
+            int childTime = child.getTime() + command.sumMax(child.getCurrentPlaceWaitTime());     //存在节点经历的时间
+            int thisTime = time + command.sumMax(childWaitTime);                                    //current节点触发后的节点经历的时间
+            if (childTime > thisTime){
+                child.setTime(time);
+                child.setCurrentPlaceWaitTime(childWaitTime);
+                child.setParent(current);
+            }
+//            if (childTime == thisTime){
+//                int hValue =command.CalcHValue(nextStateValue);
+//                child = new State(nextStateValue, current, 0, hValue,transitionNodeNumber, time);
+//                child.setCurrentPlaceWaitTime(childWaitTime);//创建新的状态
+//                openList.add(child);
+//            }
         }
-
     }
 
     //查询Open表里有没有stateValue状态

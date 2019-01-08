@@ -6,11 +6,11 @@
     </Place>  
     <Place ID="1">  
         <label>机床加工位</label>
-		<processTime>4</processTime>
+		<processTime>30</processTime>
     </Place>  
     <Place ID="2">  
         <label>完成工位</label> 
-		<processTime>2</processTime>
+		<processTime>10</processTime>
 	</Place>  		
 	<Place ID="3">  
         <label>机床可用状态</label>  
@@ -49,9 +49,9 @@
 		<cost>0</cost>
     </TransitionNode>
 	<StartState>  
-        <label>100 0 0 0 1 1</label>  
+        <label>10 0 0 0 1 1</label>  
     </StartState>  
 	<EndState>  
-        <label>0 0 0 100 1 1</label>  
+        <label>0 0 0 10 1 1</label>  
     </EndState> 
 </PetriNet>  

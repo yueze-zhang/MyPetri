@@ -75,9 +75,12 @@ public class State implements Comparable<State>, Cloneable {
     @Override
     public int compareTo(State o) {
         if (o == null) return -1;
-        if (time + command.sumMax(currentPlaceWaitTime) > o.getTime() + command.sumMax(o.currentPlaceWaitTime))
-            return 1;
-        else if (time + command.sumMax(currentPlaceWaitTime) < o.getTime() + command.sumMax(o.currentPlaceWaitTime)) return -1;
+
+        int oTime = o.getTime() + command.sumMax(o.getCurrentPlaceWaitTime())+command.CalcHValue(o.getCurrentToken());     //存在节点经历的时间
+        int thisTime = time + command.sumMax(currentPlaceWaitTime)+command.CalcHValue(currentToken);                                    //current节点触发后的节点经历的时间
+
+        if (thisTime > oTime) return 1;
+        else if (thisTime < oTime) return -1;
         return 0;
     }
 
