@@ -53,7 +53,8 @@ public class State implements Comparable<State>, Cloneable {
     @Override
     public String toString() {
         return "State [id=" + stateID + ", currentToken =" + Arrays.toString(currentToken) +
-                ", Time ="+ Integer.toString(time) +", transitionNodeID = "+ transitionNodeID+ "]";
+                ", Time ="+ Integer.toString(time) +", tID = "+ transitionNodeID+
+                ", delay[] ="+command.sumInt(currentPlaceWaitTime)+"]";
     }
 
     @Override
@@ -74,9 +75,9 @@ public class State implements Comparable<State>, Cloneable {
     @Override
     public int compareTo(State o) {
         if (o == null) return -1;
-        if (time + command.sumInt(currentPlaceWaitTime) > o.getTime() + command.sumInt(o.currentPlaceWaitTime))
+        if (time + command.sumMax(currentPlaceWaitTime) > o.getTime() + command.sumMax(o.currentPlaceWaitTime))
             return 1;
-        else if (time + command.sumInt(currentPlaceWaitTime) < o.getTime() + command.sumInt(o.currentPlaceWaitTime)) return -1;
+        else if (time + command.sumMax(currentPlaceWaitTime) < o.getTime() + command.sumMax(o.currentPlaceWaitTime)) return -1;
         return 0;
     }
 

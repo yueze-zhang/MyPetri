@@ -7,7 +7,7 @@ import static PetriNet.xmlDoc.*;
 public class main {
     static PetriNet petri;
     public static void main(String args[]) {
-        String fileName = "D:\\document\\FMS\\MyPetri\\src\\res\\PetriNet.xml";
+        String fileName = "G:\\Document\\FMS\\petri\\MyPetri\\MyPetri\\src\\res\\PetriNet.xml";
         try {
             petri = getPetriNetDocument(fileName);
             AStarKernel.AStarStart(petri);

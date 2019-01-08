@@ -74,7 +74,7 @@ public class AStarKernel {
             child.setCurrentPlaceWaitTime(childWaitTime);//创建新的状态
             openList.add(child);
         }
-        else if (child.getTime() + command.sumInt(child.getCurrentPlaceWaitTime()) > time + command.sumInt(childWaitTime))                                                                    //如果Child在OPEn表中 ，并且Child的G比nextGValue还大，说明发现了到child状态的近路，近路是current状态这条路
+        else if (child.getTime() + command.sumMax(child.getCurrentPlaceWaitTime()) > time + command.sumMax(childWaitTime))                                                                    //如果Child在OPEn表中 ，并且Child的G比nextGValue还大，说明发现了到child状态的近路，近路是current状态这条路
         {
             child.setTime(time);
             child.setCurrentPlaceWaitTime(childWaitTime);

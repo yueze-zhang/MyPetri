@@ -49,9 +49,9 @@
 		<cost>0</cost>
     </TransitionNode>
 	<StartState>  
-        <label>4 0 0 0 1 1</label>  
+        <label>100 0 0 0 1 1</label>  
     </StartState>  
 	<EndState>  
-        <label>0 0 0 4 1 1</label>  
+        <label>0 0 0 100 1 1</label>  
     </EndState> 
 </PetriNet>  

@@ -135,5 +135,14 @@ public class command {
         return sum; // 返回总和
     }
 
+    //命令：数组求和
+    public static int sumMax(int[] myArray){
+        int max = myArray[0];
+        for (int i = 0; i < myArray.length; i++)
+        {
+            if (max < myArray[i]){ max = myArray[i]; }
+        }
+        return max; // 返回总和
+    }
 
 }
