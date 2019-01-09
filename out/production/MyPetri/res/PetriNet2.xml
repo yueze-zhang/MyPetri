@@ -62,7 +62,7 @@
 	
 	    <Place ID="12">  
         <label>-</label>  
-		<processTime>30</processTime>
+		<processTime>5</processTime>
     </Place>  
 	
 	    <Place ID="13">  
@@ -72,7 +72,7 @@
 	
 	    <Place ID="14">  
         <label>-</label>  
-		<processTime>20</processTime>
+		<processTime>10</processTime>
     </Place>  
 	
 	    <Place ID="15">  
@@ -148,7 +148,7 @@
 	
 		<TransitionNode ID="9">  
         <label>-</label>  
-		<InputEdge>9 13</InputEdge>
+		<InputEdge>9 </InputEdge>
 		<OutputEdge>12</OutputEdge>
 		<cost>0</cost>
     </TransitionNode>
@@ -162,7 +162,7 @@
 	
 		<TransitionNode ID="11">  
         <label>-</label>  
-		<InputEdge>10</InputEdge>
+		<InputEdge>11</InputEdge>
 		<OutputEdge>2 15</OutputEdge>
 		<cost>0</cost>
     </TransitionNode>
@@ -170,7 +170,7 @@
 		<TransitionNode ID="12">  
         <label>-</label>  
 		<InputEdge>12</InputEdge>
-		<OutputEdge>13 15</OutputEdge>
+		<OutputEdge>15</OutputEdge>
 		<cost>0</cost>
     </TransitionNode>
 	
@@ -184,9 +184,9 @@
 
 	
 	<StartState>  
-        <label>2 2 1 0 0 1 0 0 1 0 0 0 0 1 0 0 0</label>  
+        <label>100 100 1 0 0 1 0 0 1 0 0 0 0 1 0 0 0</label>  
     </StartState>  
 	<EndState>  
-        <label>0 0 1 0 0 1 0 0 1 0 0 0 0 1 0 2 2</label>  
+        <label>0 0 1 0 0 1 0 0 1 0 0 0 0 1 0 100 100</label>  
     </EndState> 
 </PetriNet>  

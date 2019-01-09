@@ -6,6 +6,9 @@ import java.util.*;
 public class State implements Comparable<State>, Cloneable {
 
     private static int count = 0 ;                                      //用于ID自增
+
+    public int getStateID() { return stateID; }
+    public void setStateID(int stateID) { this.stateID = stateID; }
     private int stateID;
 
     private int transitionNodeID;                                      //从父状态到此状态触发的变迁ID
@@ -76,9 +79,8 @@ public class State implements Comparable<State>, Cloneable {
     public int compareTo(State o) {
         if (o == null) return -1;
 
-        int oTime = o.getTime() + command.sumMax(o.getCurrentPlaceWaitTime())+command.CalcHValue(o.getCurrentToken());     //存在节点经历的时间
-        int thisTime = time + command.sumMax(currentPlaceWaitTime)+command.CalcHValue(currentToken);                                    //current节点触发后的节点经历的时间
-
+        int oTime = o.getTime() +  command.CalcHValue(o.getCurrentToken())+command.sumMax(o.getCurrentPlaceWaitTime());    //存在节点经历的时间
+        int thisTime = time  + command.CalcHValue(currentToken)+command.sumMax(currentPlaceWaitTime) ;                                  //current节点触发后的节点经历的时间
         if (thisTime > oTime) return 1;
         else if (thisTime < oTime) return -1;
         return 0;

@@ -4,31 +4,50 @@ import java.util.*;
 
 public class AStarKernel {
     static Queue<State> openList = new PriorityQueue<State>();                                                              // 创建open表 优先队列(升序)
-    static List<State> closeList = new ArrayList<State>();                                                                  //创建close表
+    static List<State> closeList = new ArrayList<State>();
+    //static Queue<State> succeed = new PriorityQueue<State>();    //创建close表
     static PetriNet petri;
-
+    static State ulitamteState;
 
     public static void AStarStart(PetriNet o) throws Exception{
         petri = o;
         openList.clear();
         closeList.clear();
-        openList.add(petri.getStartState());                                                                            // //输入起始状态
+        openList.add(petri.getStartState());
+        int count  = 0;// //输入起始状态
+        int time = 0;
+
         while (!openList.isEmpty())
         {
-            State current = openList.poll();                                                                            //令OPEN表中第一个STATE 当作当前状态
-            if(command.JudgeEqualState(current,petri.getEndState())){                                                   //如果状态表找到目标
-                System.out.println("---------------SUCCESS!!!!-----------------");
-                command.DrawPath(current);                                                                              //画图
-                break;
+            State current = openList.poll();//令OPEN表中第一个STATE 当作当前状态
+            if(ulitamteState == null){
+                if(command.JudgeEqualState(current,petri.getEndState())){                                                   //如果状态表找到目标
+                    System.out.println("Time = " +current.getTime()+"count ="+count);
+                    //command.DrawPath(current);
+                    count++;
+                    ulitamteState = current;
+                }
+                addNeighborNodeInOpen(current);
             }
-//            if (current.getParent()!=null){
-//                System.out.println("父亲状态"+ current.getParent().toString());
-//            }
-            System.out.println("当前状态"+current.toString());
-            System.out.println("-------------------------------------");
-            closeList.add(current);
-            addNeighborNodeInOpen(current);                                                                             //把当前状态收到各个变迁刺激后的下一个状态添加到OPEN表中
+            else if(ulitamteState.getTime()>current.getTime()){
+                if(command.JudgeEqualState(current,petri.getEndState())){                                                   //如果状态表找到目标
+                    System.out.println("Time = " +current.getTime()+"count ="+count);
+                    //command.DrawPath(current);
+                    count++;
+                    ulitamteState = current;
+                    if (count == 2) break;
+                }
+                addNeighborNodeInOpen(current);
+            }
+
+                                                                            //把当前状态收到各个变迁刺激后的下一个状态添加到OPEN表中
          }
+         //State ultimateState = succeed.poll();
+
+            System.out.println("---------------ultimateState!!!!-----------------");
+            command.DrawPath(ulitamteState);
+
+
     }
 
     /**
@@ -77,12 +96,12 @@ public class AStarKernel {
                 child.setCurrentPlaceWaitTime(childWaitTime);
                 child.setParent(current);
             }
-//            if (childTime == thisTime){
-//                int hValue =command.CalcHValue(nextStateValue);
-//                child = new State(nextStateValue, current, 0, hValue,transitionNodeNumber, time);
-//                child.setCurrentPlaceWaitTime(childWaitTime);//创建新的状态
-//                openList.add(child);
-//            }
+            if (childTime == thisTime){
+                int hValue =command.CalcHValue(nextStateValue);
+                child = new State(nextStateValue, current, 0, hValue,transitionNodeNumber, time);
+                child.setCurrentPlaceWaitTime(childWaitTime);//创建新的状态
+                openList.add(child);
+            }
         }
     }
 

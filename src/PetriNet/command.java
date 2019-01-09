@@ -89,7 +89,6 @@ public class command {
             saveNum[i] = currentWaitTime[inputEdge[i]];
             minNum = saveNum[0];
             for(int j=0;j<saveNum.length;j++) {
-                System.out.print(saveNum[j] + " ");
                 if (saveNum[j] < minNum)   // 判断最小值
                     minNum = saveNum[j];
             }
@@ -129,22 +128,23 @@ public class command {
     //命令：计算H值
     public static int CalcHValue(int[] currentToken){
         int a = currentToken[0]*20;
-        int b = currentToken[1]*30;
+        int b = currentToken[1]*20;
 
-        int d = currentToken[3]*20;
-        int e = currentToken[4]*40;
+        int d = currentToken[3]*10;
+        int e = currentToken[4]*10;
 
-        int f = currentToken[6]*40;
-        int g = currentToken[7]*30;
+        int f = currentToken[6]*10;
+        int g = currentToken[7]*10;
 
         int h = currentToken[9]*10;
-        int i = currentToken[10]*20;
-        int j = currentToken[11]*10;
-        int k = currentToken[12]*30;
+        int i = currentToken[10]*10;
+        int j = currentToken[11]*0;
+        int k = currentToken[12]*0;
 
-        int l = currentToken[14]*20;
+        int l = currentToken[14]*0;
 
         return a+b+d+e+f+g+h+i+j+k+l;
+
     }
 
 

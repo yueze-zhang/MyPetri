@@ -1,0 +1,86 @@
+<?xml version="1.0"  encoding="UTF-8"?>  
+<PetriNet>  
+    <Place ID="0">  
+        <label>准备工位</label>  
+		<processTime>0</processTime>
+    </Place>  
+    <Place ID="1">  
+        <label>机床加工位</label>
+		<processTime>0</processTime>
+    </Place>  
+    <Place ID="2">  
+        <label>完成工位</label> 
+		<processTime>0</processTime>
+	</Place>  		
+	<Place ID="3">  
+        <label>机床可用状态</label>  
+		<processTime>8</processTime>
+    </Place>  
+	<Place ID="4">  
+        <label>机床可用状态</label> 
+		<processTime>5</processTime>		
+    </Place>  
+	<Place ID="5">  
+        <label>机床可用状态</label>  
+		<processTime>0</processTime>
+    </Place>  
+		<Place ID="6">  
+        <label>机床可用状态</label>  
+		<processTime>4</processTime>
+    </Place>  
+		<Place ID="7">  
+        <label>机床可用状态</label>  
+		<processTime>0</processTime>
+    </Place>  
+		<Place ID="8">  
+        <label>机床可用状态</label>  
+		<processTime>0</processTime>
+    </Place>  
+	<TransitionNode ID="0">  
+        <label>-</label>  
+		<InputEdge>0 2</InputEdge>
+		<OutputEdge>3</OutputEdge>
+		<cost>0</cost>
+    </TransitionNode>
+	
+		<TransitionNode ID="1">  
+        <label>-</label>  
+		<InputEdge>0 5</InputEdge>
+		<OutputEdge>4</OutputEdge>
+		<cost>0</cost>
+    </TransitionNode>
+	
+		<TransitionNode ID="2">  
+        <label>-</label>  
+		<InputEdge>1 5</InputEdge>
+		<OutputEdge>6</OutputEdge>
+		<cost>0</cost>
+    </TransitionNode>
+	
+		<TransitionNode ID="3">  
+        <label>-</label>  
+		<InputEdge>3</InputEdge>
+		<OutputEdge>2 7</OutputEdge>
+		<cost>0</cost>
+    </TransitionNode>
+	
+		<TransitionNode ID="4">  
+        <label>-</label>  
+		<InputEdge>4</InputEdge>
+		<OutputEdge>5 7</OutputEdge>
+		<cost>0</cost>
+    </TransitionNode>
+	
+		<TransitionNode ID="5">  
+        <label>-</label>  
+		<InputEdge>6</InputEdge>
+		<OutputEdge>5 8</OutputEdge>
+		<cost>0</cost>
+    </TransitionNode>
+	<StartState>  
+        <label>40 32 1 0 0 1 0 0 0</label>  
+    </StartState>  
+	<EndState>  
+        <label>0 0 1 0 0 1 0 40 32</label>  
+    </EndState> 
+</PetriNet>  
