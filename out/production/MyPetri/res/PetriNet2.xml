@@ -184,9 +184,9 @@
 
 	
 	<StartState>  
-        <label>100 100 1 0 0 1 0 0 1 0 0 0 0 1 0 0 0</label>  
+        <label>10 10 1 0 0 1 0 0 1 0 0 0 0 1 0 0 0</label>  
     </StartState>  
 	<EndState>  
-        <label>0 0 1 0 0 1 0 0 1 0 0 0 0 1 0 100 100</label>  
+        <label>0 0 1 0 0 1 0 0 1 0 0 0 0 1 0 10 10</label>  
     </EndState> 
 </PetriNet>  

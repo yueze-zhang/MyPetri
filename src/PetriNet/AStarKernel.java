@@ -35,8 +35,9 @@ public class AStarKernel {
                     //command.DrawPath(current);
                     count++;
                     ulitamteState = current;
-                    if (count == 2) break;
+                    if (count == 1) break;
                 }
+                if (count == 1) break;
                 addNeighborNodeInOpen(current);
             }
 
