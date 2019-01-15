@@ -6,50 +6,84 @@ public class AStarKernel {
     static Queue<State> openList = new PriorityQueue<State>();                                                              // 创建open表 优先队列(升序)
     static List<State> closeList = new ArrayList<State>();
     //static Queue<State> succeed = new PriorityQueue<State>();    //创建close表
-    static PetriNet petri;
-    static State ulitamteState;
 
-    public static void AStarStart(PetriNet o) throws Exception{
+    static PetriNet petri;
+    static PetriNet prepare;
+    static State ulitamteState;
+    static int[] arrivalTime;
+
+    public static int AstarPrePare(PetriNet p, PetriNet q) throws Exception {                        //A 星算法准备
+        int time = 0;
+        petri = q;
+        prepare = p;
+        openList.clear();
+        closeList.clear();
+        openList.add(prepare.getStartState());
+        while (!openList.isEmpty())
+        {
+            State current = openList.poll();                                                                            //令OPEN表中第一个STATE 当作当前状态
+            if(command.JudgePrepareEqualState(p,current)){                                                   //如果状态表找到目标
+                //System.out.println("---------------SUCCESS!!!!-----------------");
+                //command.DrawPath(current);                                                                              //画图
+                return current.getTime();
+            }
+            //System.out.println("当前状态"+current.toString());
+            //System.out.println("-------------------------------------");
+            closeList.add(current);
+            addNeighborNodeInOpen(current);
+        }
+        return 0;
+    }
+
+
+
+
+
+    public static void AStarStart(PetriNet o, int[] arrivaltime) throws Exception{
+        arrivalTime = arrivaltime.clone();
         petri = o;
         openList.clear();
         closeList.clear();
         openList.add(petri.getStartState());
         int count  = 0;// //输入起始状态
         int time = 0;
-
         while (!openList.isEmpty())
         {
-            State current = openList.poll();//令OPEN表中第一个STATE 当作当前状态
-            if(ulitamteState == null){
-                if(command.JudgeEqualState(current,petri.getEndState())){                                                   //如果状态表找到目标
-                    System.out.println("Time = " +current.getTime()+"count ="+count);
-                    //command.DrawPath(current);
-                    count++;
-                    ulitamteState = current;
-                }
-                addNeighborNodeInOpen(current);
-            }
-            else if(ulitamteState.getTime()>current.getTime()){
-                if(command.JudgeEqualState(current,petri.getEndState())){                                                   //如果状态表找到目标
-                    System.out.println("Time = " +current.getTime()+"count ="+count);
-                    //command.DrawPath(current);
-                    count++;
-                    ulitamteState = current;
-                    if (count == 1) break;
-                }
-                if (count == 1) break;
-                addNeighborNodeInOpen(current);
+            State current = openList.poll();
+
+            if (current.getStateID() == 1217171){
+                int a= 0;
+                a= a++;
             }
 
-                                                                            //把当前状态收到各个变迁刺激后的下一个状态添加到OPEN表中
-         }
-         //State ultimateState = succeed.poll();
 
-            System.out.println("---------------ultimateState!!!!-----------------");
-            command.DrawPath(ulitamteState);
+            //令OPEN表中第一个STATE 当作当前状态
+            if(ulitamteState == null){          //如果，没有算出结果
+                if(command.JudgeEqualState(current,petri.getEndState())){           //如果当前current是结束状态                                              //如果状态表找到目标
+                    System.out.println("Time = " +current.getTime()+"count ="+count);       //打印当前状态 当前花费时间
+                    command.DrawPath(current);
+                    count++;
+                    ulitamteState = current;                                        //把current记录为最佳结果
+                }
+                addNeighborNodeInOpen(current);                                     //把当前状态添加到邻接表中
 
-
+            }
+            else if(ulitamteState.getTime()>current.getTime()){                     //如果当前current的时间比之前得到的结果状态时间小的话
+                if(command.JudgeEqualState(current,petri.getEndState())){            //如果状态表找到目标
+                    System.out.println("Time = " +current.getTime()+"count ="+count);
+                    command.DrawPath(current);
+                    count++;
+                    ulitamteState = current;
+                    if (count >= 3) break;
+                }
+                if (count >= 3) break;
+                addNeighborNodeInOpen(current);                                 //当前状态不是endstate 继续寻找
+            }
+        }
+        System.out.println("---------------ultimateState!!!!-----------------");
+        command.DrawPath(ulitamteState);
     }
+
 
     /**
      * 添加所有邻状态到open表
@@ -58,12 +92,12 @@ public class AStarKernel {
         int count = 0;                                                                                                      //用于记录addAStateInOpen返回了多少false
         for(int transitionNodeNumber = 0; transitionNodeNumber < petri.transitionNodesList.size(); transitionNodeNumber++)  //检测出一共有多少个个变迁
         {
-            if(command.TestTransitionToken(petri, current, transitionNodeNumber) ){ //当前可以触发变迁&&
-                if(command.TestTransitionTime(petri, current, transitionNodeNumber)){
+            if(command.TestTransitionToken(petri, current, transitionNodeNumber) ){                             //当前可以触发变迁&&
+                if(command.TestTransitionTime(petri, current, transitionNodeNumber)){                           //当前时间可以触发变迁
                     addAStateInOpen(petri, current, transitionNodeNumber);
                 }
                 else {
-                    State newcurrent = command.ReduceWaitTime(petri, current,transitionNodeNumber);
+                    State newcurrent = command.ReduceWaitTime(petri, current,transitionNodeNumber);             //时间不可以触发，更改时间，并把新的current 放入邻接表中
                     openList.add(newcurrent);
                 }
             }else{
@@ -84,7 +118,7 @@ public class AStarKernel {
         State child = findNodeInOpen(nextStateValue);                                                           //查找这个状态表里在不在OPEn表中
         if (child == null)
         {
-            int hValue =command.CalcHValue(nextStateValue);
+            int hValue =command.CalcHValue(nextStateValue,arrivalTime);
             child = new State(nextStateValue, current, 0, hValue,transitionNodeNumber, time);
             child.setCurrentPlaceWaitTime(childWaitTime);//创建新的状态
             openList.add(child);
@@ -95,10 +129,11 @@ public class AStarKernel {
             if (childTime > thisTime){
                 child.setTime(time);
                 child.setCurrentPlaceWaitTime(childWaitTime);
+                child.setTransitionNodeID(transitionNodeNumber);
                 child.setParent(current);
             }
             if (childTime == thisTime){
-                int hValue =command.CalcHValue(nextStateValue);
+                int hValue =command.CalcHValue(nextStateValue,arrivalTime);
                 child = new State(nextStateValue, current, 0, hValue,transitionNodeNumber, time);
                 child.setCurrentPlaceWaitTime(childWaitTime);//创建新的状态
                 openList.add(child);

@@ -22,7 +22,9 @@ public class xmlDoc {
     private static Document document = null;
     private static Map<Integer,Place> places = null;
     private static Map<Integer,TransitionNode> transitionNodes = null;
-
+    private static int starNodeNumber;
+    private static int endNodeNumber;
+    private static int stateNodeNumber;
 
 
     static {
@@ -46,6 +48,20 @@ public class xmlDoc {
         return petriNet;
     }
 
+    public static PetriNet getPetriNetPrepareDocument(String fileName)throws Exception{   //将给定URI的内容解析为一个XML文档,并返回Document对象
+        document = db.parse(fileName);                 //按文档顺序返回包含在文档中且具有给定标记名称的所有 Element 的 NodeList
+        Map<Integer,Place> place = getPlace(document);
+        Map<Integer,TransitionNode> transitionNodes = getTransitionNode(document);
+        State startState = getStartState(document);
+        State endState = getEndState(document);
+        getNodeNumber(document);
+
+        PetriNet petriNetPrepare = new PetriNet(place,transitionNodes,startState,endState);
+        petriNetPrepare.setEndNodeNumber(endNodeNumber);
+        petriNetPrepare.setStarNodeNumber(starNodeNumber);
+        petriNetPrepare.setStateNodeNumber(stateNodeNumber);
+        return petriNetPrepare;
+    }
 //--------------------------------------------------------------------------------
 //                读取XML中的PLACE信息
 //--------------------------------------------------------------------------------
@@ -171,5 +187,31 @@ public class xmlDoc {
         state.setCurrentToken(A1);
         return state;
     }
+
+    //--------------------------------------------------------------------------------
+    //                读取XML中的初始NodeNumber信息
+    //--------------------------------------------------------------------------------
+    public static void getNodeNumber(Document document) throws Exception{
+        NodeList placeList = document.getElementsByTagName("NodeNumber");
+                                //获取第i个Place结点
+            org.w3c.dom.Node node = placeList.item(0);                           //获取第i个book的所有属性
+            NamedNodeMap namedNodeMap = node.getAttributes();                    //获取已知名为id的属性值
+            //获取place结点的子节点,包含了Test类型的换行
+            NodeList cList = node.getChildNodes();
+            //将一个Place里面的属性加入数组
+            ArrayList<String> contents = new ArrayList<>();
+            for(int j=1;j<cList.getLength();j+=2){
+                org.w3c.dom.Node cNode = cList.item(j);
+                String content = cNode.getFirstChild().getTextContent();
+                contents.add(content);
+            }
+            starNodeNumber = Integer.parseInt(contents.get(0));
+            endNodeNumber = Integer.parseInt(contents.get(1));;
+            stateNodeNumber = Integer.parseInt(contents.get(2));
+    }
+
+
+
 }
+
 

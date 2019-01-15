@@ -55,6 +55,19 @@ public class command {
     }
 
     //-------------------------------------------------------------------------------------
+    //命令，prepare判断目标位置是否一致是
+    public static boolean JudgePrepareEqualState(PetriNet o, State p) {
+        int statePlaceNumber = o.getStartState().getCurrentToken().length
+                - o.getEndNodeNumber()- o.getStateNodeNumber();           //状态数
+        int[] end = o.getEndState().getCurrentToken();
+        int[] current = p.getCurrentToken();
+        for (int i = statePlaceNumber; i<statePlaceNumber+o.getEndNodeNumber();i++){
+            if(end[i] == current[i]) return true;
+        }
+        return false;
+    }
+
+    //-------------------------------------------------------------------------------------
     //命令，画出当前节点的所有上面的节点
     public static void DrawPath(State current) {
         while (current != null) {
@@ -88,10 +101,10 @@ public class command {
         for (int i = 0; i < saveNum.length; i++) {
             saveNum[i] = currentWaitTime[inputEdge[i]];
             minNum = saveNum[0];
-            for(int j=0;j<saveNum.length;j++) {
-                if (saveNum[j] < minNum)   // 判断最小值
-                    minNum = saveNum[j];
-            }
+        }
+        for(int j=0;j<saveNum.length;j++) {
+            if (saveNum[j] > minNum)   // 判断最小值
+                minNum = saveNum[j];
         }
         for (int i = 0; i < currentWaitTime.length; i++) {
             currentWaitTime[i] = currentWaitTime[i] - minNum;
@@ -126,25 +139,14 @@ public class command {
 
     //-------------------------------------------------------------------------------------
     //命令：计算H值
-    public static int CalcHValue(int[] currentToken){
-        int a = currentToken[0]*20;
-        int b = currentToken[1]*20;
-
-        int d = currentToken[3]*10;
-        int e = currentToken[4]*10;
-
-        int f = currentToken[6]*10;
-        int g = currentToken[7]*10;
-
-        int h = currentToken[9]*10;
-        int i = currentToken[10]*10;
-        int j = currentToken[11]*0;
-        int k = currentToken[12]*0;
-
-        int l = currentToken[14]*0;
-
-        return a+b+d+e+f+g+h+i+j+k+l;
-
+    public static int CalcHValue(int[] currentToken,int[] arrivalStateTime){
+        int sum = 0;
+        if(arrivalStateTime == null) return 0;
+        for(int i = 0; i<arrivalStateTime.length;i++)
+        {
+            sum = arrivalStateTime[i]*currentToken[i]+ sum;
+        }
+        return sum;
     }
 
 
@@ -153,6 +155,7 @@ public class command {
     //命令：数组求和
     public static int sumInt(int[] myArray){
         int sum = 0;
+        if(myArray == null) myArray = new int[1];
         for (int i = 0; i < myArray.length; i++)
             sum += myArray[i];
         return sum; // 返回总和

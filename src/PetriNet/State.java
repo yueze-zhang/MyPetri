@@ -55,7 +55,7 @@ public class State implements Comparable<State>, Cloneable {
 
     @Override
     public String toString() {
-        return "State [id=" + stateID + ", currentToken =" + Arrays.toString(currentToken) +
+        return "State [id=" + stateID+ ", currentToken =" + Arrays.toString(currentToken) +
                 ", Time ="+ Integer.toString(time) +", tID = "+ transitionNodeID+
                 ", delay[] ="+command.sumInt(currentPlaceWaitTime)+"]";
     }
@@ -79,8 +79,9 @@ public class State implements Comparable<State>, Cloneable {
     public int compareTo(State o) {
         if (o == null) return -1;
 
-        int oTime = o.getTime() +  command.CalcHValue(o.getCurrentToken())+command.sumMax(o.getCurrentPlaceWaitTime());    //存在节点经历的时间
-        int thisTime = time  + command.CalcHValue(currentToken)+command.sumMax(currentPlaceWaitTime) ;                                  //current节点触发后的节点经历的时间
+        int oTime = o.getTime() +  o.gethValue()
+        +command.sumMax(o.getCurrentPlaceWaitTime());    //存在节点经历的时间
+        int thisTime = time  + gethValue() + command.sumMax(currentPlaceWaitTime) ;                                  //current节点触发后的节点经历的时间
         if (thisTime > oTime) return 1;
         else if (thisTime < oTime) return -1;
         return 0;
