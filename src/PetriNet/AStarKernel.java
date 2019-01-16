@@ -74,9 +74,9 @@ public class AStarKernel {
                     command.DrawPath(current);
                     count++;
                     ulitamteState = current;
-                    if (count >= 3) break;
+                    if (count >= 10) break;
                 }
-                if (count >= 3) break;
+                if (count >= 10) break;
                 addNeighborNodeInOpen(current);                                 //当前状态不是endstate 继续寻找
             }
         }

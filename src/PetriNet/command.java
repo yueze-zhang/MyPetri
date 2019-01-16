@@ -100,11 +100,13 @@ public class command {
         int minNum = 0;
         for (int i = 0; i < saveNum.length; i++) {
             saveNum[i] = currentWaitTime[inputEdge[i]];
-            minNum = saveNum[0];
         }
+        minNum = saveNum[0];
         for(int j=0;j<saveNum.length;j++) {
-            if (saveNum[j] > minNum)   // 判断最小值
-                minNum = saveNum[j];
+            if(saveNum[j]!= 0){
+                if (saveNum[j] < minNum)   // 判断最小值
+                    minNum = saveNum[j];
+            }
         }
         for (int i = 0; i < currentWaitTime.length; i++) {
             currentWaitTime[i] = currentWaitTime[i] - minNum;
