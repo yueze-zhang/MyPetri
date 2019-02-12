@@ -8,7 +8,7 @@ public class main {
     static PetriNet petri;
     static PetriNet prepare;
     public static void main(String args[]) {
-        String fileName = "G:\\Document\\FMS\\petri\\MyPetri\\MyPetri\\src\\res\\PetriNet5.xml";
+        String fileName = "src\\res\\PetriNet5.xml";
         try {
             petri = getPetriNetDocument(fileName);
             prepare = getPetriNetPrepareDocument(fileName);
